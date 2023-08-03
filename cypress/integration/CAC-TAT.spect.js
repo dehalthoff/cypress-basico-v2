@@ -77,10 +77,28 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     })
 
     it('envia o formuário com sucesso usando um comando customizado', function() {
-        cy.fillMandatoryFieldsAndSubmit()
+        cy.fillMandatoryFieldsAndSubmit() //busca na pasta commands.js as infos para preencher os campos
 
         cy.get('.success').should('be.visible')
     })
 
+    it('seleciona um produto (YouTube) por seu texto', function() {
+        cy.get('#product')
+            .select('YouTube') //selecionar o campo youtube da lista
+            .should('have.value', 'youtube')
+    })
 
+    it('seleciona um produto (Mentoria) por seu valor (value)', function() {
+        cy.get('#product')
+            .select('mentoria') //seleciona o campo mentoria da lista
+            .should('have.value', 'mentoria')
+    })
+
+    it.only('seleciona um produto (Blog) por seu índice', function() {
+        cy.get('#product')
+            .select(1) //seleciona o primeiro valor da lista, que no caso é a opçõa blog
+            .should('have.value', 'blog')
+    })
+
+    
   })
