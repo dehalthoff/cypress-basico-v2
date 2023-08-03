@@ -94,11 +94,27 @@ describe('Central de Atendimento ao Cliente TAT', function() {
             .should('have.value', 'mentoria')
     })
 
-    it.only('seleciona um produto (Blog) por seu índice', function() {
+    it('seleciona um produto (Blog) por seu índice', function() {
         cy.get('#product')
             .select(1) //seleciona o primeiro valor da lista, que no caso é a opçõa blog
             .should('have.value', 'blog')
     })
+
+    it('marca o tipo de atendimento "Feedback"', function(){
+        cy.get('input[type="radio"][value="feedback"]')
+        .check()
+        .should('have.value', 'feedback')
+    })
+
+    it.only('marca cada tipo de atendimento', function(){
+        cy.get('input[type="radio"]')
+        .should('have.length', 3) //verifica que tem 3 radios buttos
+        .each(function($radio){ //pega os 3 radios
+            cy.wrap($radio).check() //empacota cada um dos radios, e da um check em cada um dos radios
+            cy.wrap($radio).should('be.checked') //verifica se todos foram marcados
+        })
+    })
+
 
     
   })
