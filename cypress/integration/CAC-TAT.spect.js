@@ -36,11 +36,11 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         .should('have.value', '')
     })
 
-    it('xibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário', function(){
+    it('exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário', function(){
         cy.get('#firstName').type('André Leonardo')
         cy.get('#lastName').type('Althoff')
         cy.get('#email').type('emaSil@email.com')
-        cy.get('#phone-checkbox').click()
+        cy.get('#phone-checkbox').check() //da para usar o .click() ou o .check() pois é um checkbox
         cy.get('#open-text-area').type('teste')
         cy.contains('button', 'Enviar').click()
 
@@ -106,7 +106,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         .should('have.value', 'feedback')
     })
 
-    it.only('marca cada tipo de atendimento', function(){
+    it('marca cada tipo de atendimento', function(){
         cy.get('input[type="radio"]')
         .should('have.length', 3) //verifica que tem 3 radios buttos
         .each(function($radio){ //pega os 3 radios
@@ -115,6 +115,17 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         })
     })
 
+    it('marca ambos checkboxes, depois desmarca o último', function(){
+        cy.get('input[type="checkbox"]')
+        .check() //pega os checkboxes
+        .last() //éga o ultimo check
+        .uncheck() //desmarca o ultimo
+        .should('not.be.checked') //verifica se nao ta marcado (no caso o ultimo)
+    })
+
+    it('marca ambos checkboxes, depois desmarca o último', function(){
+       
+    })
 
     
   })
