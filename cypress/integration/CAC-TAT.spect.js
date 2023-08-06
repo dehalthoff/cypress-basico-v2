@@ -123,7 +123,15 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         .should('not.be.checked') //verifica se nao ta marcado (no caso o ultimo)
     })
 
-    it('marca ambos checkboxes, depois desmarca o último', function(){
+    it.only('seleciona um arquivo da pasta fixtures', function(){
+        cy.get('input[type="file"]#file-upload')
+    })
+
+    it('seleciona um arquivo simulando um drag-and-drop', function(){
+       
+    })
+
+    it('seleciona um arquivo utilizando uma fixture para a qual foi dada um alias', function(){
        
     })
 
