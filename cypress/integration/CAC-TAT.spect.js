@@ -11,6 +11,9 @@ describe('Central de Atendimento ao Cliente TAT', function() {
 
     it('preenche os campos obrigatórios e envia o formulário', function(){
         const longText = 'Teste, Teste, Teste, Teste, Teste, Teste, Teste, Teste, Teste, Teste, Teste, Teste, Teste, Teste, Teste, Teste, Teste, '
+        
+        cy.clock()
+
         cy.get('#firstName').type('André Leonardo')
         cy.get('#lastName').type('Althoff')
         cy.get('#email').type('email@email.com')
@@ -18,6 +21,10 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.contains('button', 'Enviar').click() // cy.contains pega o que ta escrito no botão
 
         cy.get('.success').should('be.visible')
+        
+        cy.tick(3000)
+
+        cy.get('.success').should('not.be.visible')
     })
 
     it('exibe mensagem de erro ao submeter o formulário com um email com formatação inválida', function(){
@@ -37,6 +44,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     })
 
     it('exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário', function(){
+        cy.clock()
         cy.get('#firstName').type('André Leonardo')
         cy.get('#lastName').type('Althoff')
         cy.get('#email').type('emaSil@email.com')
@@ -45,6 +53,10 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.contains('button', 'Enviar').click()
 
         cy.get('.error').should('be.visible')
+        
+        cy.tick(3000)
+
+        cy.get('.success').should('not.be.visible')
     })
 
     it('preenche e limpa os campos nome, sobrenome, email e telefone', function(){
@@ -71,15 +83,26 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     })
 
     it('exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios', function() {
+        cy.clock()
         cy.contains('button', 'Enviar').click()
 
         cy.get('.error').should('be.visible')
+        
+        cy.tick(3000)
+
+        cy.get('.error').should('not.be.visible')
+        
     })
 
     it('envia o formuário com sucesso usando um comando customizado', function() {
+       cy.clock()
+       
         cy.fillMandatoryFieldsAndSubmit() //busca na pasta commands.js as infos para preencher os campos
 
         cy.get('.success').should('be.visible')
+        cy.tick(3000)
+
+        cy.get('.success').should('not.be.visible')
     })
 
     it('seleciona um produto (YouTube) por seu texto', function() {
